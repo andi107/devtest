@@ -7,22 +7,66 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class RcvLogController extends Controller {
 
-    public function status(Request $req) {
-        
-        $sq = $req->input('sq');
-        if (!$sq) {
-            return response()->json([
-                'msg' => 'Data not found.'
-            ], 404);
+    public function save(Request $req) {
+        $this->validate($req, [
+            'id' => 'required|numeric',
+            'seq' => 'required',
+            'time' => 'required',
+            'imei' => 'required',
+            'event' => 'required',
+            'power' => 'required',
+            'bat' => 'required',
+            'sig' => 'required',
+            'sat' => 'required',
+        ]);
+
+        $id = $req->input('id');
+        $seq = $req->input('seq');
+        $time = $req->input('time');
+        $imei = $req->input('imei');
+        $event = $req->input('event');
+        $power = $req->input('power');
+        $bat = $req->input('bat');
+        $sig = $req->input('sig');
+        $sat = $req->input('sat');
+
+        $chkData = DB::table('rcv_ignition2')
+        ->where('id','=', $id)
+        ->first();
+        if (!$chkData) {
+            DB::table('rcv_ignition2')
+            ->insert([
+                'id' => $id,
+                'seq' => $seq,
+                'time' => $time,
+                'imei' => $imei,
+                'event' => $event,
+                'power' => $power,
+                'bat' => $bat,
+                'sig' => $sig,
+                'sat' => $sat,
+            ]);
+        }else{
+            DB::table('rcv_ignition2')
+            ->where('id','=', $id)
+            ->update([
+                'seq' => $seq,
+                'time' => $time,
+                'imei' => $imei,
+                'event' => $event,
+                'power' => $power,
+                'bat' => $bat,
+                'sig' => $sig,
+                'sat' => $sat,
+            ]);
         }
 
-        $data = DB::table('datar1')
-        ->where('SEQUENNCE','=', $sq)
-        // ->orderBy('DATE','desc')
-        ->orderBy(DB::raw("str_to_date(date, '%d/%m/%Y')"), 'DESC')
-        ->orderBy('TIME','desc')
+        
+        $data = DB::table('rcv_ignition2')
+        ->where('id','=', $id)
         ->first();
         return response()->json([
+            'msg' => 'Data OK.',
             'data' => $data
         ], 200);
     }

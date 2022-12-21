@@ -11,4 +11,6 @@ $router->group([
     $router->get('track/map', 'TrackController@map');
     $router->get('track/log', 'TrackController@log');
     $router->get('track/dummy', 'TrackController@dummyTrack');
+
+    $router->get('dummy/save', 'RcvLogController@save');
 });
