@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Blank</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
+</head>
+
+<body id="page-top" class="sidebar-toggled">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TRACKER <sup>HERE</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        $290.29 has been deposited into your account!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 2, 2019</div>
+                                        Spending Alert: We've noticed unusually high spending for your account.
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="startbootstrap/img/undraw_profile_1.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                                            problem I've been having.</div>
+                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="startbootstrap/img/undraw_profile_2.svg"
+                                            alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">I have the photos that you ordered last month, how
+                                            would you like them sent to you?</div>
+                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="startbootstrap/img/undraw_profile_3.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Last month's report looks great, I am very happy with
+                                            the progress so far, keep up the good work!</div>
+                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                                            told me that people say this to all dogs, even if they aren't good...</div>
+                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle"
+                                    src="startbootstrap/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Tracking Page</h1>
+                    <!-- <div style="height: 500px" id="mapContainer"></div> -->
+                    
+                    <section class="container py-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- <h2>Tabs</h2> -->
+                                <ul id="tabs" class="nav nav-tabs">
+                                    <li class="nav-item"><a href="index.html" class="nav-link small text-uppercase active">Status</a></li>
+                                    <li class="nav-item"><a href="trackingmap.html" class="nav-link small text-uppercase">Tracking Map</a></li>
+                                    <li class="nav-item"><a href="trackinglog.html" class="nav-link small text-uppercase">Tracking Log</a></li>
+                                    <li class="nav-item"><a href="indextes.html" class="nav-link small text-uppercase">Dummy Live Tracking</a></li>
+                                </ul>
+                                <br>
+                                <div id="tabsContent" class="tab-content">
+                                    <div id="status" class="tab-pane fade active show">
+                                        <div class="row pb-2">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <img src="img/gpsdevice.png" alt="thum" class="img-thumbnail">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h3>
+                                                                    GPS - <span id="gpstitle">-</span>
+                                                                </h3>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div>
+                                                                            <p class="card-text">
+                                                                                IMEI ID : <span id="imeid">-</span>
+                                                                            </p>
+                                                                            <p class="card-text">
+                                                                                Battery Level : <span id="batlvl">-</span>
+                                                                            </p>
+                                                                            <p class="card-text">
+                                                                                Satellite in-use : <span id="satellite">-</span>
+                                                                            </p>
+                                                                            <p class="card-text">
+                                                                                Direction : <span id="direct">-</span>
+                                                                            </p>
+                                                                            <p class="card-text">
+                                                                                Speed : <span id="speed">-</span> Km/h
+                                                                            </p>
+                                                                            <p class="card-text">
+                                                                                Last Update : <span id="latesdate">-</span>
+                                                                            </p>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="page-header">
+                                                                    <h3>
+                                                                        Last Location
+                                                                    </h3>
+                                                                </div>
+                                                                <ul class="nav nav-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <h4>
+                                                                                <span class="badge badge-info">
+                                                                                    GNSS
+                                                                                </span>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            <span id="latesdate2">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </ul>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                         <span class="badge badge-default text-uppercase text-left">Date Time</span>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                         <span class="badge badge-default text-uppercase text-left">GNSS Point</span>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                         <span class="badge badge-default text-uppercase text-left">Location</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="border-top my-3"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                         <span id="datetime" class="badge badge-default text-left">-</span>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                         <span id="gnsspoint" class="badge badge-default text-left">-</span>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                         <span id="location" class="badge badge-default text-wrap text-left">-</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="border-top my-3"></div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div style="height: 500px" id="mapContainer"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="startbootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="startbootstrap/js/sb-admin-2.min.js"></script>
+    <script>
+
+        var isMarker, map,icn, v, bURL = 'http://localhost/bht/api/public';
+        var platform = new H.service.Platform({
+            apikey: 'jUocnu7hdQ9_ZyYLLJn4XNSrxgI8HoCjEcZ2iPg2vRs'
+        });
+        if (window.location.hostname !== 'localhost') {
+            bURL = 'http://110.5.105.26/bht/api/public';
+        }
+        
+        function addMarkersToMap(map,lastLat,lastLon) {
+            
+            icn = new H.map.Icon('./img/start.png', { size: {w: 50, h: 50 } });
+            
+            isMarker = new H.map.DomMarker({lat:lastLat, lng:lastLon, icon: icn});
+            map.addObject(isMarker);
+
+            //setInterval(updateMarker, 5000);
+        }
+
+        function updateMarker(){
+            let lonf = (Math.random()*360-180).toFixed(8);
+            let latf = (Math.random()*180-90).toFixed(8);
+            console.log(lonf,latf)
+            isMarker.setGeometry( {lat: latf, lng:lonf} );
+            map.setCenter({lat: latf, lng:lonf});
+        }
+
+        
+        
+        function mapConfig () {
+            
+            var defaultLayers = platform.createDefaultLayers();
+
+            map = new H.Map(document.getElementById('mapContainer'),
+            defaultLayers.vector.normal.map,{
+                zoom: 15,
+                center: { lng: v.LONGITUDE, lat: v.LATITUDE },
+                pixelRatio: window.devicePixelRatio || 1
+            });
+            window.addEventListener('resize', () => map.getViewPort().resize());
+            //var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+            var ui = H.ui.UI.createDefault(map, defaultLayers);
+            const mapEvents = new H.mapevents.MapEvents(map);
+            const behavior = new H.mapevents.Behavior(mapEvents);
+            addMarkersToMap(map,v.LATITUDE,v.LONGITUDE);
+        }
+
+        function getDate(isDate) {
+            var date = isDate.split("/");
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            for(var j=0;j<months.length;j++){
+                if(date[1]==months[j]){
+                    date[1]=months.indexOf(months[j])+1;
+                }                      
+            } 
+            if(date[1]<10){
+                date[1]='0'+date[1];
+            }                        
+            var formattedDate = date[2]+'/'+date[1]+'/'+date[0];
+            return formattedDate;
+        }
+        
+        var ismonths = {
+            0: 'Jan',
+            1: 'Feb',
+            2: 'Mar',
+            3: 'Apr',
+            4: 'May',
+            5: 'Jun',
+            6: 'Jul',
+            7: 'Aug',
+            8: 'Sep',
+            9: 'Oct',
+            10: 'Nov',
+            11: 'Dec'
+          }
+          
+        //window.onload = function () {
+            
+        //}
+        function load() {
+            $.get(bURL + "/api/track/status?sq=808080", function (data) {
+                console.log(data.data)
+                v = data.data;
+                if (Math.floor(v.LATITUDE) !== 0) {
+                    console.log('v',v)
+                    if (typeof v === 'undefined') {
+                        alert('Cannot call API.')
+                    }else{
+                        let imei = v.IMEI.replace(' ','');
+                        imei = imei.replace('OK','');
+
+                        $('#gpstitle').text(v.SEQUENNCE);
+                        $('#imeid').text(imei);
+                        $('#batlvl').text(v.BATTERY.toString() + ' %');
+                        $('#satellite').text(v.SATELITE);
+                        $('#direct').text(v.DIRECT);
+                        $('#speed').text(v.SPEED);
+
+                        var isdate = new Date(getDate(v.DATE))
+                        isdate = isdate.getDate() +" "+ ismonths[isdate.getMonth()] + " " + isdate.getFullYear() + " " + v.TIME;
+                        $('#latesdate').text(isdate);
+                        $('#latesdate2').text(isdate);
+
+                        $('#datetime').text(isdate);
+                        $('#gnsspoint').text(v.LATITUDE +', '+ v.LONGITUDE);
+                        
+                        var service = platform.getSearchService();
+                        service.reverseGeocode({
+                            at: v.LATITUDE + "," +  v.LONGITUDE
+                        }, (result) => {
+                            result.items.forEach((item) => {
+                                $('#location').text(item.address.label);
+                            });
+                        }, alert);
+                        
+                        mapConfig();
+                        
+                    }
+                }
+            });
+        }
+        load()
+    </script>
+</body>
+
+</html>

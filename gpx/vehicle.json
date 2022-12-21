@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1129,
+    "name": "TRUCK_DEMO",
+    "uniqueid": "andi777",
+    "lastupdate": "",
+    "positionid": "",
+    "groupid": "",
+    "attributes": {},
+    "phone": "",
+    "model": "",
+    "contact": "",
+    "category": "",
+    "disabled": "",
+    "fnupdated_by": 1,
+    "fncreated_by": 1,
+    "created_at": "2022-07-14 16:41:40",
+    "updated_at": "2022-07-14 16:41:40",
+    "vehicle_id": 1101,
+    "ftlicense_plate": "B1V",
+    "ftname": "TRUCK",
+    "ftbrand": "HINO",
+    "vehicle_status": "ACTIVE",
+    "ftquarry_name": "Demo Quarry",
+    "quarry_id": 12
+  }
+]
