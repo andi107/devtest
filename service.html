@@ -7,11 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"/>
 
     <title>Hello, world!</title>
     <style>
@@ -19,13 +15,19 @@
         max-height: clamp(20em, 10vh, 250px);
         overflow: auto;
       }
+      table.dataTable td {
+        font-size: 0.8em;
+      }
+      table.dataTable tr.dtrg-level-0 td {
+        font-size: 1.1em;
+      }
     </style>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <h3>SERVER TRANSACTION</h3>
+          <h3>LOG TRANSACTION</h3>
           <div>
             <table class="table table-striped table-bordered" id="tblserver">
               <thead>
@@ -38,53 +40,8 @@
             </table>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <h3 class="text-left">h3. Lorem ipsum dolor sit amet.</h3>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Payment Taken</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>TB - Monthly</td>
-                    <td>01/04/2012</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr class="table-active">
-                    <td>1</td>
-                    <td>TB - Monthly</td>
-                    <td>01/04/2012</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr class="table-success">
-                    <td>2</td>
-                    <td>TB - Monthly</td>
-                    <td>02/04/2012</td>
-                    <td>Declined</td>
-                  </tr>
-                  <tr class="table-warning">
-                    <td>3</td>
-                    <td>TB - Monthly</td>
-                    <td>03/04/2012</td>
-                    <td>Pending</td>
-                  </tr>
-                  <tr class="table-danger">
-                    <td>4</td>
-                    <td>TB - Monthly</td>
-                    <td>04/04/2012</td>
-                    <td>Call in to confirm</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-md-6 tbodyDiv">
-              <h3 class="text-left">h3. Lorem ipsum dolor sit amet.</h3>
+            <div class="col-md-12">
+              <h3 class="text-left">Failed to send</h3>
               <table class="table">
                 <thead>
                   <tr>
@@ -133,14 +90,10 @@
       </div>
     </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <script>
 
       $(document).ready(function () {
@@ -158,7 +111,6 @@
               "columnDefs": [
                 { "width": "5%", "targets": 0 },
                 { "width": "10%", "targets": 1 },
-                { "width": "100%", "targets": 2 }
               ],
               fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 if (aData[0] == "Done") {
@@ -170,8 +122,10 @@
                 } else if (aData[0] == "Queue") {
                     $('td', nRow).css('background-color', '#f8d7da');
                 }
-            }
+              },
+
           });
+          
           
 
           function connect() {
