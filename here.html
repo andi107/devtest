@@ -59,3 +59,20 @@
 </body>
 
 </html>
+
+
+
+var trserver = document.createElement('tr');
+            
+            trserver.className = tblClass[data.stts];
+            trserver.innerHTML = '<td>'+ data.id +'</td>' +
+                '<td>'+ data.seq +'</td>' +
+                '<td>'+ data.time +'</td>' +
+                '<td>'+ data.imei +'</td>' +
+                '<td>'+ data.event +'</td>' +
+                '<td>'+ data.power +'</td>' +
+                '<td>'+ data.bat +'</td>' +
+                '<td>'+ data.sig +'</td>' +
+                '<td>'+ data.sat +'</td>' +
+                '<td>'+ tblStatusName[data.stts] +'</td>';
+            tblserver.appendChild(trserver);
