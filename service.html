@@ -42,47 +42,14 @@
           <div class="row">
             <div class="col-md-12">
               <h3 class="text-left">Failed to send</h3>
-              <table class="table">
+              <table class="table table-striped table-bordered" id="tblfailed">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th>Payment Taken</th>
-                    <th>Status</th>
+                    <th>STATUS</th>
+                    <th>TIME</th>
+                    <th>JSON</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>TB - Monthly</td>
-                    <td>01/04/2012</td>
-                    <td>Default</td>
-                  </tr>
-                  <tr class="table-active">
-                    <td>1</td>
-                    <td>TB - Monthly</td>
-                    <td>01/04/2012</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr class="table-success">
-                    <td>2</td>
-                    <td>TB - Monthly</td>
-                    <td>02/04/2012</td>
-                    <td>Declined</td>
-                  </tr>
-                  <tr class="table-warning">
-                    <td>3</td>
-                    <td>TB - Monthly</td>
-                    <td>03/04/2012</td>
-                    <td>Pending</td>
-                  </tr>
-                  <tr class="table-danger">
-                    <td>4</td>
-                    <td>TB - Monthly</td>
-                    <td>04/04/2012</td>
-                    <td>Call in to confirm</td>
-                  </tr>
-                </tbody>
               </table>
             </div>
           </div>
@@ -97,12 +64,7 @@
     <script>
 
       $(document).ready(function () {
-          
-          
-      
-
           var server = "ws://110.5.105.26:6002";
-          var tblserver = document.getElementById('tblserver').getElementsByTagName('tbody')[0];
           var tblClass = ["table-success","table-warning", "table-danger"];
           var tblStatusName = ["Done","Queue", "Failed"];
 
@@ -124,6 +86,17 @@
                 }
               },
 
+          });
+
+          var tblfailed = $('#tblfailed').DataTable({
+            order: [[1, 'desc']],
+            "columnDefs": [
+              { "width": "5%", "targets": 0 },
+              { "width": "10%", "targets": 1 },
+            ],
+            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+              $('td', nRow).css('background-color', '#f8d7da');    
+            },
           });
           
           
@@ -195,6 +168,9 @@
                 }
               }
               tblserver.row.add([tblStatusName[resJ.stts], resJ.time, JSON.stringify(_resData)]).draw(true);
+              if (resJ.stts === 2) {
+                tblfailed.row.add([tblStatusName[resJ.stts], resJ.time, JSON.stringify(_resData)]).draw(true);
+              }
             };
 
             ws.onclose = function (e) {
