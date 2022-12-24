@@ -82,7 +82,7 @@
                     $('td', nRow).css('background-color', '#f8d7da');
                     
                 } else if (aData[0] == "Queue") {
-                    $('td', nRow).css('background-color', '#f8d7da');
+                    $('td', nRow).css('background-color', '#F1F7B5');
                 }
               },
 
@@ -165,6 +165,7 @@
                   "speed": resJ.speed,
                   "bat": resJ.bat,
                   "sat": resJ.sat,
+                  "pdop": resJ.pdop
                 }
               }
               tblserver.row.add([tblStatusName[resJ.stts], resJ.time, JSON.stringify(_resData)]).draw(true);
