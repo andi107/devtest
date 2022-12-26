@@ -7,13 +7,37 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class LocationRelayController extends Controller {
 
-    public function index() {
-        $data = DB::table('loc_relay')
-        ->orderBy('time','asc')
-        // ->skip(0)->take(50)
-        ->get();
+    public function index(Request $request) {
+        //2018-01-01 00:00:00
+        $from = $request->input('from');
+        $to = $request->input('to');
+
+        if ($from || $to) {
+            $this->validate($request, [
+                'from' => 'required|date_format:Y-m-d H:i:s',
+                'to' => 'required|date_format:Y-m-d H:i:s',
+            ]);
+            $data = DB::table('loc_relay')
+            ->whereBetween('time', [$from, $to])
+            ->orderBy('time','asc')
+            ->get();
+            $totalData = DB::table('loc_relay')
+            ->whereBetween('time', [$from, $to])
+            ->orderBy('time','asc')
+            ->count();
+        }else{
+            $data = DB::table('loc_relay')
+            ->orderBy('time','asc')
+            ->get();
+            $totalData = DB::table('loc_relay')
+            ->orderBy('time','asc')
+            ->count();
+        }
+
+        
         return response()->json([
-            'data' => $data
+            'total' => $totalData,
+            'data' => $data,
         ], 200);
     }
 
