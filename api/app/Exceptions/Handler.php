@@ -11,11 +11,7 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * A list of the exception types that should not be reported.
-     *
-     * @var array
-     */
+    
     protected $dontReport = [
         AuthorizationException::class,
         HttpException::class,
@@ -23,32 +19,40 @@ class Handler extends ExceptionHandler
         ValidationException::class,
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Throwable  $exception
-     * @return void
-     *
-     * @throws \Exception
-     */
     public function report(Throwable $exception)
     {
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Throwable
-     */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        return parent::render($request, $exception);
+        if (env('APP_DEBUG')) {
+            return parent::render($request, $e);
+        }
+        if ($e instanceof ValidationException) {
+            return $e->response;
+        }
+
+        $message = $e->getMessage();
+
+        if (!$message) {
+            $message = 'Internal Server Error.';
+        }
+
+        $user = Auth::user();
+
+        if (isset($user->_id)) {
+            Log::error(sprintf('Exception Message: %s - User: %s', $message, $user->_id));
+        } else {
+            Log::error(sprintf('Exception Message: %s', $message));
+        }
+
+        return response()->json([
+            'error' => $message,
+        ], 500)
+            ->header('X-Content-Type-Options', 'nosniff')
+            ->header('X-Frame-Options', 'DENY')
+            ->header('X-XSS-Protection', '1; mode=block')
+            ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
     }
 }
