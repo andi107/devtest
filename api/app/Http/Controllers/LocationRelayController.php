@@ -81,13 +81,18 @@ class LocationRelayController extends Controller {
 
     public function trackinglogs(Request $request) {
         $imei = $request->input('imei');
-        if (!$imei) {
-            return response()->json([
-                'data' => []
-            ], 200);
-        };
+        $from = $request->input('from');
+        $to = $request->input('to');
+        
+        $this->validate($request, [
+            'imei' => 'required',
+            'from' => 'required|date_format:Y-m-d H:i:s',
+            'to' => 'required|date_format:Y-m-d H:i:s',
+        ]);
+
         $data = DB::table('loc_relay')
         ->where('imei','=',$imei)
+        ->whereBetween('time', [$from, $to])
         ->orderBy('time','desc')
         ->get();
         return response()->json([
