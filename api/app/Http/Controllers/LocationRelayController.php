@@ -63,4 +63,36 @@ class LocationRelayController extends Controller {
         ], 200);
     }
 
+    public function deviceList() {
+        $data = DB::table('loc_relay')
+        ->select('imei')
+        ->groupBy('imei')
+        ->get();
+        foreach ($data as $key => $value) {
+            $value->latestData = DB::table('loc_relay')
+            ->selectRaw('seq, "time", event, "long", lat, pdop, direct, speed, bat, sat')
+            ->orderBy('time','desc')
+            ->first();
+        }
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
+
+    public function trackinglogs(Request $request) {
+        $imei = $request->input('imei');
+        if (!$imei) {
+            return response()->json([
+                'data' => []
+            ], 200);
+        };
+        $data = DB::table('loc_relay')
+        ->where('imei','=',$imei)
+        ->orderBy('time','desc')
+        ->get();
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
+
 }
