@@ -11,4 +11,6 @@ $router->group([
     $router->get('track/location_relay/latest', 'LocationRelayController@latest_loc_relay');
     $router->get('track/location_relay/deviceslist', 'LocationRelayController@deviceList');
     $router->get('track/location_relay/logs', 'LocationRelayController@trackinglogs');
+
+    $router->get('track/location_relay/chart', 'LocationRelayController@dasboardChart');
 });

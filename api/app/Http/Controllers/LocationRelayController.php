@@ -100,4 +100,48 @@ class LocationRelayController extends Controller {
         ], 200);
     }
 
+    public function dasboardChart(Request $request) {
+        $imei = $request->input('imei');
+        $dtnow = Carbon::now()->format('Y-m-d');
+        // $dtnow = '2022-12-24';
+        $tmpBat = [];
+        $tmpSpeed = [];
+        for($i = 0; $i<=23; $i++) {
+            // $sum = $sum + $i;
+            $between = [
+                $dtnow.' '.$this->getZero($i).':00:00',
+                $dtnow.' '.$this->getZero($i+1).':00:00'];
+            $data = DB::table('loc_relay')
+            ->selectRaw('avg(CAST(bat AS decimal)) as agg')
+            ->where('imei','=',$imei)
+            ->whereBetween('time', $between)
+            ->first();
+            if ($data->agg) {
+                $tmpBat[$i] = number_format($data->agg,2);
+            }else{
+                $tmpBat[$i] = '0';
+            }
+
+            $data = DB::table('loc_relay')
+            ->selectRaw('avg(CAST(speed AS decimal)) as agg')
+            ->where('imei','=',$imei)
+            ->whereBetween('time', $between)
+            ->first();
+            if ($data->agg) {
+                $tmpSpeed[$i] = number_format($data->agg,2);
+            }else{
+                $tmpSpeed[$i] = '0';
+            }
+        }
+        
+        return response()->json([
+            'dataBat' => $tmpBat,
+            'dataSpeed' => $tmpSpeed
+        ], 200);
+    }
+
+    function getZero($intVal) {
+        return str_pad($intVal, 2, '0', STR_PAD_LEFT);
+    }
+
 }
