@@ -102,37 +102,101 @@ class LocationRelayController extends Controller {
 
     public function dasboardChart(Request $request) {
         $imei = $request->input('imei');
-        $dtnow = Carbon::now()->format('Y-m-d');
-        // $dtnow = '2022-12-24';
+        $timeframe = $request->input('timeframe');
+        $dtnow = Carbon::now();
+        // $dtnow = Carbon::parse('2022-12-24');
         $tmpBat = [];
         $tmpSpeed = [];
-        for($i = 0; $i<=23; $i++) {
-            // $sum = $sum + $i;
-            $between = [
-                $dtnow.' '.$this->getZero($i).':00:00',
-                $dtnow.' '.$this->getZero($i+1).':00:00'];
-            $data = DB::table('loc_relay')
-            ->selectRaw('avg(CAST(bat AS decimal)) as agg')
-            ->where('imei','=',$imei)
-            ->whereBetween('time', $between)
-            ->first();
-            if ($data->agg) {
-                $tmpBat[$i] = number_format($data->agg,2);
-            }else{
-                $tmpBat[$i] = '0';
-            }
+        switch ($timeframe) {
+            case '1D':
+                $dtnow = $dtnow->format('Y-m-d');
+                for($i = 0; $i<=23; $i++) {
+                    // $sum = $sum + $i;
+                    $between = [
+                        $dtnow.' '.$this->getZero($i).':00:00',
+                        $dtnow.' '.$this->getZero($i+1).':00:00'
+                    ];
+                    $data = DB::table('loc_relay')
+                    ->selectRaw('avg(CAST(bat AS decimal)) as agg')
+                    ->where('imei','=',$imei)
+                    ->whereBetween('time', $between)
+                    ->first();
+                    if ($data->agg >= '0'){
+                        $tmpBat[$i] = number_format($data->agg,2);
+                    }else if ($data->agg == null) {
+                        try {
+                            $tmpBat[$i] = $tmpBat[$i-1];
+                        } catch (\Throwable $th) {
+                            $tmpBat[$i] = "0";
+                        }
+                    }
+                    $data = DB::table('loc_relay')
+                    ->selectRaw('avg(CAST(speed AS decimal)) as agg')
+                    ->where('imei','=',$imei)
+                    ->whereBetween('time', $between)
+                    ->first();
+                    if ($data->agg >= '0'){
+                        $tmpSpeed[$i] = number_format($data->agg,2);
+                    }else if ($data->agg == null) {
+                        try {
+                            $tmpSpeed[$i] = $tmpSpeed[$i-1];
+                        } catch (\Throwable $th) {
+                            $tmpSpeed[$i] = "0";
+                        }
+                    }
+                }
+                break;
+            case '1W':
+                // $dtnow = $dtnow->format('Y-m-d');
 
-            $data = DB::table('loc_relay')
-            ->selectRaw('avg(CAST(speed AS decimal)) as agg')
-            ->where('imei','=',$imei)
-            ->whereBetween('time', $between)
-            ->first();
-            if ($data->agg) {
-                $tmpSpeed[$i] = number_format($data->agg,2);
-            }else{
-                $tmpSpeed[$i] = '0';
-            }
+                // $weekStartDate = $dtnow->copy()->startOfWeek()->format('Y-m-d');
+                // $weekEndDate = $dtnow->copy()->endOfWeek()->format('Y-m-d');
+                // $start = $dtnow->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
+                // $end = $dtnow->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
+                // Carbon::now()->subDays(30)->format('Y-m-d')
+                for($i = 0; $i<=6; $i++) {
+                    $getDay = $dtnow->copy()->startOfWeek($i)->format('Y-m-d');
+                    // $getDay = $dtnow->startOfWeek($i)->format('Y-m-d');
+                    
+                    $between = [
+                        $getDay.' 00:00:00',
+                        $getDay.' 23:59:59',
+                    ];
+                    // dd($dtnow->format('Y-m-d'),$getDay);
+                    $data = DB::table('loc_relay')
+                    ->selectRaw('avg(CAST(bat AS decimal)) as agg')
+                    ->where('imei','=',$imei)
+                    ->whereBetween('time', $between)
+                    ->first();
+                    if ($data->agg >= '0'){
+                        $tmpBat[$i] = number_format($data->agg,2);
+                    }else if ($data->agg == null) {
+                        try {
+                            $tmpBat[$i] = $tmpBat[$i-1];
+                        } catch (\Throwable $th) {
+                            $tmpBat[$i] = "0";
+                        }
+                    }
+                    $data = DB::table('loc_relay')
+                    ->selectRaw('avg(CAST(speed AS decimal)) as agg')
+                    ->where('imei','=',$imei)
+                    ->whereBetween('time', $between)
+                    ->first();
+                    if ($data->agg >= '0'){
+                        $tmpSpeed[$i] = number_format($data->agg,2);
+                    }else if ($data->agg == null) {
+                        try {
+                            $tmpSpeed[$i] = $tmpSpeed[$i-1];
+                        } catch (\Throwable $th) {
+                            $tmpSpeed[$i] = "0";
+                        }
+                    }
+                }
+                // dd($weekStartDate,$weekEndDate,$start,$end);
+            default:
+                break;
         }
+        
         
         return response()->json([
             'dataBat' => $tmpBat,
