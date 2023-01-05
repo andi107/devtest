@@ -208,4 +208,17 @@ class LocationRelayController extends Controller {
         return str_pad($intVal, 2, '0', STR_PAD_LEFT);
     }
 
+    public function ignitionData(Request $request) {
+
+        $imei = $request->input('imei');
+        $data = DB::table('ignition2')
+        ->where('imei','=', $imei)
+        ->orderBy('time','desc')
+        ->first();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
+
 }

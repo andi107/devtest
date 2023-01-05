@@ -13,4 +13,7 @@ $router->group([
     $router->get('track/location_relay/logs', 'LocationRelayController@trackinglogs');
 
     $router->get('track/location_relay/chart', 'LocationRelayController@dasboardChart');
+
+    $router->get('track/ignition', 'LocationRelayController@ignitionData');
+    
 });
