@@ -15,5 +15,5 @@ $router->group([
     $router->get('track/location_relay/chart', 'LocationRelayController@dasboardChart');
 
     $router->get('track/ignition', 'LocationRelayController@ignitionData');
-    
+    $router->get('track/location_relay/geodeclare', 'LocationRelayController@geoDeclareList');
 });
