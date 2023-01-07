@@ -233,4 +233,27 @@ class LocationRelayController extends Controller {
             'data' => $data,
         ], 200);
     }
+
+    public function routeInGeo(Request $request) {
+        $imei = $request->input('imei');
+        $geoid = $request->input('geoid');
+
+        $data = DB::table('loc_relay')
+        ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat')
+        ->where('imei','=', $imei)
+        ->where('geoid','=',$geoid)
+        ->orderBy('time', 'asc')
+        ->get();
+
+        $totalData = DB::table('loc_relay')
+        ->where('imei','=', $imei)
+        ->where('geoid','=',$geoid)
+        ->orderBy('time', 'asc')
+        ->count();
+        
+        return response()->json([
+            'total' => $totalData,
+            'data' => $data,
+        ], 200);
+    }
 }
