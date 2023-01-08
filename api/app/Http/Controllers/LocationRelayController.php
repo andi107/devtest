@@ -73,6 +73,11 @@ class LocationRelayController extends Controller {
             ->selectRaw('seq, "time", event, "long", lat, pdop, direct, speed, bat, sat')
             ->orderBy('time','desc')
             ->first();
+            if (DB::table('v_tolgate')->where('entry_imei','=', $value->imei)->whereNull('exit_id')->first()) {
+                $value->status = 'INCOMPLETE';
+            }else{
+                $value->status = 'COMPLETE';
+            }
         }
         return response()->json([
             'data' => $data
