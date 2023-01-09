@@ -261,4 +261,17 @@ class LocationRelayController extends Controller {
             'data' => $data,
         ], 200);
     }
+
+    public function geoDeclareLts(Request $request) {
+        $imei = $request->input('imei');
+
+        $data = DB::table('v_tolgate')
+        ->where('entry_imei','=', $imei)
+        ->orderBy('entry_time','desc')
+        ->first();
+        
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
 }
