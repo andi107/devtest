@@ -18,4 +18,6 @@ $router->group([
     $router->get('track/location_relay/geodeclare', 'LocationRelayController@geoDeclareList');
     $router->get('track/location_relay/routeInGeo', 'LocationRelayController@routeInGeo');
     $router->get('track/location_relay/geoDeclareLts', 'LocationRelayController@geoDeclareLts');
+
+    $router->get('sigfox/test', 'TestController@index');
 });
