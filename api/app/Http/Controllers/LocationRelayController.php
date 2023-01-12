@@ -244,7 +244,7 @@ class LocationRelayController extends Controller {
         $geoid = $request->input('geoid');
 
         $data = DB::table('loc_relay')
-        ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat')
+        ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat, alt')
         ->where('imei','=', $imei)
         ->where('geoid','=',$geoid)
         ->orderBy('time', 'asc')
