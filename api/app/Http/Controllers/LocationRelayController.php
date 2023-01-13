@@ -62,6 +62,31 @@ class LocationRelayController extends Controller {
             'data' => $data
         ], 200);
     }
+    // select entry_id,exit_id  from v_tolgate vt where entry_imei = '866782042270062'
+    // order by entry_id desc limit 1
+
+    public function currentRun(Request $request) {
+        $imei = $request->input('imei');
+        $tolgate = DB::table('v_tolgate')
+        ->where('entry_imei','=', $imei)
+        ->whereNull('exit_id')
+        ->orderBy('entry_time','desc')
+        ->first();
+        if ($tolgate) {
+            $status = 0; //incomplete
+            $data = DB::table('loc_relay')
+            ->where('imei','=', $imei)
+            ->orderBy('time','desc')
+            ->first();
+        }else{
+            $status = 1; //complete
+            $data = null;
+        }
+        return response()->json([
+            'status' => $status,
+            'data' => $data,
+        ], 200);
+    }
 
     public function deviceList() {
         $data = DB::table('loc_relay')
