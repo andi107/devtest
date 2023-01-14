@@ -20,4 +20,5 @@ $router->group([
     $router->get('track/location_relay/geoDeclareLts', 'LocationRelayController@geoDeclareLts');
     $router->get('track/location_relay/current_run', 'LocationRelayController@currentRun');
     
+    
 });

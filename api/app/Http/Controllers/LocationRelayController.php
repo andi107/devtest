@@ -67,6 +67,7 @@ class LocationRelayController extends Controller {
 
     public function currentRun(Request $request) {
         $imei = $request->input('imei');
+        $geoid = $request->input('geoid');
         $tolgate = DB::table('v_tolgate')
         ->where('entry_imei','=', $imei)
         ->whereNull('exit_id')
@@ -76,12 +77,18 @@ class LocationRelayController extends Controller {
             $status = 0; //incomplete
             $data = DB::table('loc_relay')
             ->where('imei','=', $imei)
+            ->where('geoid','=', $geoid)
             ->orderBy('time','desc')
             ->first();
         }else{
             $status = 1; //complete
             $data = null;
         }
+        $data = DB::table('loc_relay')
+            ->where('imei','=', $imei)
+            ->where('geoid','=', $geoid)
+            ->orderBy('time','desc')
+            ->first();
         return response()->json([
             'status' => $status,
             'data' => $data,
