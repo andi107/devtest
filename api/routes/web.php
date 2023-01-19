@@ -7,6 +7,14 @@ $router->get('/', function () use ($router) {
 $router->group([
     'prefix' => 'api',
 ], function() use($router) {
+    $router->group([
+        'prefix' => 'devices',
+    ], function() use($router) {
+        $router->get('/', 'Devices\DeviceController@index');
+        $router->post('create', 'Devices\DeviceController@create');
+        $router->post('update', 'Devices\DeviceController@update');
+    });
+
     $router->get('track/location_relay', 'LocationRelayController@index');
     $router->get('track/location_relay/latest', 'LocationRelayController@latest_loc_relay');
     $router->get('track/location_relay/deviceslist', 'LocationRelayController@deviceList');
