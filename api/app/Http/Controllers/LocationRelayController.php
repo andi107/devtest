@@ -275,22 +275,45 @@ class LocationRelayController extends Controller {
         $imei = $request->input('imei');
         $geoid = $request->input('geoid');
 
-        $data = DB::table('loc_relay')
-        ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat, alt')
-        ->where('imei','=', $imei)
-        ->where('geoid','=',$geoid)
-        ->orderBy('time', 'asc')
-        ->get();
+        $geoData = DB::table('v_tolgate')
+        ->where('entry_id','=', $geoid)
+        ->where('entry_imei','=', $imei)
+        ->first();
 
-        $totalData = DB::table('loc_relay')
-        ->where('imei','=', $imei)
-        ->where('geoid','=',$geoid)
-        ->orderBy('time', 'asc')
-        ->count();
+        if ($geoData) {
+            $data = DB::table('loc_relay')
+            ->where('imei','=', $imei)
+            ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat, alt')
+            ->whereBetween('time', [$geoData->entry_time, $geoData->exit_time])
+            ->orderBy('time', 'asc')
+            ->get();
+            $totalData = DB::table('loc_relay')
+            ->where('imei','=', $imei)
+            ->whereBetween('time', [$geoData->entry_time, $geoData->exit_time])
+            ->orderBy('time', 'asc')
+            ->count();
+        }else{
+            $data = [];
+            $totalData = 0;
+        }
+
+        // $data = DB::table('loc_relay')
+        // ->selectRaw('id, "time", "event", long, lat, pdop, direct, speed, bat, sat, alt')
+        // ->where('imei','=', $imei)
+        // ->where('geoid','=',$geoid)
+        // ->orderBy('time', 'asc')
+        // ->get();
+
+        // $totalData = DB::table('loc_relay')
+        // ->where('imei','=', $imei)
+        // ->where('geoid','=',$geoid)
+        // ->orderBy('time', 'asc')
+        // ->count();
         
         return response()->json([
             'total' => $totalData,
             'data' => $data,
+            'geo' => $geoData
         ], 200);
     }
 
