@@ -13,6 +13,7 @@ $router->group([
         $router->get('/', 'Devices\DeviceController@index');
         $router->post('create', 'Devices\DeviceController@create');
         $router->post('update', 'Devices\DeviceController@update');
+        $router->get('list', 'Devices\DeviceController@list');
     });
 
     $router->get('track/location_relay', 'LocationRelayController@index');

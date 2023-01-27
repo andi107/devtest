@@ -135,4 +135,13 @@ class DeviceController extends Controller {
         // }
     }
 
+    public function list() {
+        $data = DB::table('x_obu_devices')
+        ->get();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
+
 }
