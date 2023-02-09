@@ -138,8 +138,31 @@ class DeviceController extends Controller {
     public function list() {
         $data = DB::table('x_obu_devices')
         ->get();
+        $geoData = DB::table('x_geo_declare')
+        ->get();
+        foreach ($geoData as $avalue) {
+            foreach ($avalue as $a_key => $a_value) {
+                if ($a_key == 'id') {
+                    $avalue->polygon = DB::table('v_geo_declare_adv')
+                    ->selectRaw('fnchkpoint,fnindex,fflat,fflon,ftstate')
+                    ->where('x_geo_declare_id','=',$a_value)
+                    ->where('fnchkpoint','=', '0')
+                    ->orderBy('fnchkpoint','asc')
+                    ->orderBy('fnindex','asc')
+                    ->get();
+                    $avalue->polygon_lts = DB::table('v_geo_declare_adv')
+                    ->selectRaw('fnchkpoint,fnindex,fflat,fflon,ftstate')
+                    ->where('x_geo_declare_id','=',$a_value)
+                    ->where('fnchkpoint','=', '0')
+                    ->orderBy('fnchkpoint','asc')
+                    ->orderBy('fnindex','asc')
+                    ->first();
+                }
+            }
+        }
 
         return response()->json([
+            'geodata' => $geoData,
             'data' => $data,
         ], 200);
     }

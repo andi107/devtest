@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('x_obu_devices', function($table) {
-            $table->integer('fngeo_status')->default(0);
-            $table->integer('fngeo_current_id')->default(0);
-        });
+        // Schema::table('x_obu_devices', function($table) {
+        //     $table->integer('fngeo_status')->default(0);
+        //     $table->integer('fngeo_current_id')->default(0);
+        //     $table->integer('fngeo_chkpoint')->default(0);
+        // });
     }
 
     /**
