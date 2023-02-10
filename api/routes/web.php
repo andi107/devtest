@@ -16,6 +16,11 @@ $router->group([
         $router->get('list', 'Devices\DeviceController@list');
     });
 
+    $router->group([
+        'prefix' => 'debugging',
+    ], function() use($router) {
+        $router->get('routelist', 'Maps\DebuggingRouteController@list');
+    });
     $router->get('track/location_relay', 'LocationRelayController@index');
     $router->get('track/location_relay/latest', 'LocationRelayController@latest_loc_relay');
     $router->get('track/location_relay/deviceslist', 'LocationRelayController@deviceList');
