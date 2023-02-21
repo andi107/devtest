@@ -17,6 +17,13 @@ $router->group([
     });
 
     $router->group([
+        'prefix' => 'gates',
+    ], function() use($router) {
+        $router->get('/', 'Gates\GatesController@list');
+        $router->get('detail', 'Gates\GatesController@detail');
+    });
+
+    $router->group([
         'prefix' => 'debugging',
     ], function() use($router) {
         $router->get('routelist', 'Maps\DebuggingRouteController@list');
