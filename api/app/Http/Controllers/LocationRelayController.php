@@ -48,15 +48,25 @@ class LocationRelayController extends Controller {
 
     public function latest_loc_relay(Request $request) {
         
+        // $imei = $request->input('imei');
+        // if (!$imei) {
+        //     return response()->json([
+        //         'msg' => 'Data not found.'
+        //     ], 404);
+        // }
+        // $data = DB::table('loc_relay')
+        // ->where('imei','=', $imei)
+        // ->orderBy('time','desc')
+        // ->first();
         $imei = $request->input('imei');
         if (!$imei) {
             return response()->json([
                 'msg' => 'Data not found.'
             ], 404);
         }
-        $data = DB::table('loc_relay')
-        ->where('imei','=', $imei)
-        ->orderBy('time','desc')
+        $data = DB::table('debuging_routes')
+        ->where('ftdevice_id','=', $imei)
+        ->orderBy('created_at','desc')
         ->first();
         return response()->json([
             'data' => $data
@@ -96,8 +106,23 @@ class LocationRelayController extends Controller {
     }
 
     public function deviceList() {
-        $data = DB::table('loc_relay')
-        ->select('imei')
+        // $data = DB::table('loc_relay')
+        // ->select('imei')
+        // ->groupBy('imei')
+        // ->get();
+        // foreach ($data as $key => $value) {
+        //     $value->latestData = DB::table('loc_relay')
+        //     ->selectRaw('seq, "time", event, "long", lat, pdop, direct, speed, bat, sat')
+        //     ->orderBy('time','desc')
+        //     ->first();
+        //     if (DB::table('v_tolgate')->where('entry_imei','=', $value->imei)->whereNull('exit_id')->first()) {
+        //         $value->status = 'INCOMPLETE';
+        //     }else{
+        //         $value->status = 'COMPLETE';
+        //     }
+        // }
+        $data = DB::table('x_obu_devices')
+        ->selectRaw('ftimei as imei')
         ->groupBy('imei')
         ->get();
         foreach ($data as $key => $value) {
