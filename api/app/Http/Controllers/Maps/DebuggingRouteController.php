@@ -19,6 +19,7 @@ class DebuggingRouteController extends Controller {
 
         $routes = DB::table('debuging_routes')
         ->where('ftdevice_id','=',$did)
+        ->where('fttype','=', 'R1')
         ->whereBetween('created_at', [$from, $to])
         ->get();
 
